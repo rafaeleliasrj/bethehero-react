@@ -61,10 +61,16 @@ export default function Register() {
               value={city}
               onChange={e => setCity(e.target.value)}
             />
-            <input placeholder="UF"
+            <select value={uf} onChange={e => setUf(e.target.value)} style={{ width: 100 }}>
+              <option value="RJ">RJ</option>
+              <option value="SP">SP</option>
+              <option value="MG">MG</option>
+              <option value="ES">ES</option>
+            </select>
+            {/* <input placeholder="UF"
               value={uf}
               onChange={e => setUf(e.target.value)}
-              style={{ width: 80 }} />
+              style={{ width: 80 }} /> */}
           </div>
           <button type="submit" className="button">Cadastrar</button>
         </form>
