@@ -8,6 +8,7 @@ import heroesImg from '../../assets/heroes.png';
 
 export default function Logon() {
     const [id, setId] = useState('');
+    const [password, setPassword] = useState('');
     const history = useHistory();
 
     async function handleLogon(e) {
@@ -31,6 +32,10 @@ export default function Logon() {
                     <input placeholder="Sua ID"
                         value={id}
                         onChange={e => setId(e.target.value)}
+                    />
+                    <input placeholder="Senha"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
                     />
                     <button className="button" type="submit">Entrar</button>
                     <Link to="/register" className="back-link">
