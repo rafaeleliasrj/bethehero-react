@@ -14,13 +14,12 @@ export default function Logon() {
     async function handleLogon(e) {
         e.preventDefault();
         try {
-            const response = await api.post('sessions', { id });
-            localStorage.setItem('ongId', id);
-            localStorage.setItem('ongName', response.data.name);
-            console.log(response);
+            const response = await api.post('sessions/ong', { id, password });
+            localStorage.setItem('ong', response.data.ong);
+            localStorage.setItem('token', response.data.token)
             history.push('/profile');
         } catch (error) {
-            alert(`Ops... Algo deu errado: ${error}`);
+            alert(`Ops... Algo deu errado: ${error.message}`);
         }
     }
     return (
@@ -33,7 +32,7 @@ export default function Logon() {
                         value={id}
                         onChange={e => setId(e.target.value)}
                     />
-                    <input placeholder="Senha"
+                    <input type="password" placeholder="Senha"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     />

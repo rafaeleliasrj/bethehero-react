@@ -6,8 +6,9 @@ import './styles.css';
 import logoImg from '../../assets/logo.svg';
 
 export default function Profile() {
-    const ongId = localStorage.getItem('ongId');
-    const ongName = localStorage.getItem('ongName');
+    const ong = JSON.parse(localStorage.getItem('ong'));
+    const token = localStorage.getItem('token');
+
     const [incidents, setIncidents] = useState([]);
     const history = useHistory();
     function handleLogout() {
@@ -18,7 +19,7 @@ export default function Profile() {
         try {
             api.delete(`incidents/${id}`, {
                 headers: {
-                    Authorization: ongId
+                    ong_id: ong.id
                 }
             })
             setIncidents(incidents.filter(incident => incident.id !== id));
@@ -27,21 +28,21 @@ export default function Profile() {
         }
     }
     useEffect(() => {
-        api.get('incidents?limit=50', {
+        api.get('incidents', {
             headers: {
-                Authorization: ongId
+                ong_id: ong.id
             }
         }).then(
             response => {
                 setIncidents(response.data)
             }
         )
-    }, [ongId])
+    }, [token, ong.id])
     return (
         <div className="profile-container">
             <header>
                 <img src={logoImg} alt="Be The Hero" />
-                <span>Bem vinda, {ongName}</span>
+                <span>Bem vinda, {ong.name}</span>
                 <Link to="/incident/new" className="button">
                     Cadastrar novo caso
                 </Link>
